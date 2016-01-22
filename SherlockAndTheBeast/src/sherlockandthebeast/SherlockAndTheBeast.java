@@ -35,15 +35,15 @@ public class SherlockAndTheBeast {
                 
                 // if all the number of 5s are divisible by 5 AND the number of 3s is divisible by 5 
                 if(q % 5 == 0 && p % 3 == 0){
-                    String biggestNumber = "";
+                    StringBuilder biggestNumber = new StringBuilder();
                     
                     for(int k =0; k < p; k++)
-                        biggestNumber+="5";
+                        biggestNumber.append("5");
                     
                     for(int k =0; k < q; k++)
-                        biggestNumber+="3";
+                        biggestNumber.append("3");
                     
-                    biggestDecentNumbers.add(Long.parseLong(biggestNumber));
+                    biggestDecentNumbers.add(Long.parseLong(biggestNumber.toString()));
                 }
                 
                 p--;
