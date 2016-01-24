@@ -8,3 +8,5 @@ This repo contains attempts and solutions to problems found on hacker rank: http
 3) Sherlock And The Beast - 4/15 FAIL
 
 4) Utopian Tree - Success
+
+5) Find Squares - Success
