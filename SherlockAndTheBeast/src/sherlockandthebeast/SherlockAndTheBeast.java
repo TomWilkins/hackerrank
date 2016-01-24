@@ -1,67 +1,86 @@
 package sherlockandthebeast;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class SherlockAndTheBeast {
 
-    /**
-     * 
-     * This is a solution to https://www.hackerrank.com/challenges/sherlock-and-the-beast
-     * 
-     */
-    public static void main(String[] args) throws IOException {
-        
-        // Get input values
-        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-        int numTestCases = Integer.parseInt(in.readLine());
-        
-        for(int i = 0; i < numTestCases; i++){
-            int numOfDigits = Integer.parseInt(in.readLine());
-            
-            // q = number of 3s
-            int q = 0;
-            
-            // p = number of 5s
-            int p = numOfDigits;
-            
-            List<Long> biggestDecentNumbers = new ArrayList<>();
-            
-            // Loop over different combinations of 3s and 5s
-            for(int j = 0; j <= numOfDigits; j++){
-                
-                // if all the number of 5s are divisible by 5 AND the number of 3s is divisible by 5 
-                if(q % 5 == 0 && p % 3 == 0){
-                    StringBuilder biggestNumber = new StringBuilder();
-                    
-                    for(int k =0; k < p; k++)
-                        biggestNumber.append("5");
-                    
-                    for(int k =0; k < q; k++)
-                        biggestNumber.append("3");
-                    
-                    biggestDecentNumbers.add(Long.parseLong(biggestNumber.toString()));
-                }
-                
-                p--;
-                q++;
-            }
-            
-            // get biggest
-            long biggest = 0;
-            if(biggestDecentNumbers.isEmpty())
-                biggest = -1;
-            else
-                for(Long t : biggestDecentNumbers)
-                    if(t > biggest)
-                        biggest = t;
-                
-            System.out.println(biggest);
-            
-        }
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int t = in.nextInt();
+        for(int a0 = 0; a0 < t; a0++)
+            mySolution(in.nextInt());
     }
     
+    
+    /**
+     * This is a solution to https://www.hackerrank.com/challenges/sherlock-and-the-beast
+     */
+    private static void mySolution(int numOfDigits){
+        
+        // q = number of 3s
+        int q = 0;
+
+        // p = number of 5s
+        int p = numOfDigits;
+        
+        // biggest decent
+        long biggest = -1;
+
+        // Loop over different combinations of 3s and 5s
+        for(int j = 0; j <= numOfDigits; j++){
+
+            StringBuilder biggestNumber = new StringBuilder();
+                
+            // if number of 5s is divisible by 3
+            if(p % 3 == 0)
+                for(int k =0; k < p; k++)
+                    biggestNumber.append("5");
+                
+            // if all the number of 3s are divisible by 5
+            if(q % 5 == 0)
+                for(int k =0; k < q; k++)
+                    biggestNumber.append("3");
+
+            if(biggestNumber.length() > 0 && Long.parseLong(biggestNumber.toString()) > biggest)
+                    biggest = Long.parseLong(biggestNumber.toString());
+            
+
+            p--;
+            q++;
+        }
+
+        System.out.println(biggest);
+    }
+    
+    
+    private static void jacksSolution(int digitCount){
+        int numFives = -1;
+        int numThrees = -1;
+        StringBuilder decentNumberAsString = new StringBuilder();
+        
+        for (int i = digitCount / 3; i >= 0; i--) {
+            if ((digitCount - 3 * i) % 5 == 0) {
+                  numFives = i;
+                  numThrees = (digitCount - 3 * i) / 5;
+                  break;
+            }
+        }
+        if (numFives == -1) {
+            System.out.println("-1");
+        }
+        else
+        {
+            for (int i = 0; i < 3 * numFives; i++) {
+               decentNumberAsString.append("5");
+            }
+ 
+           for (int i = 0; i < 5 * numThrees; i++) {
+               decentNumberAsString.append("3");
+           }
+            
+           System.out.println(decentNumberAsString);
+        }
+    }
 }
